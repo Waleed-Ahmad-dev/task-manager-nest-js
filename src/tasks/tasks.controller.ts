@@ -13,14 +13,12 @@ export class TasksController {
 
     @Get(":id")
     getOneTask(@Param('id') id: string) {
-        console.log(id)
-        return "One task"
+        return this.tasksService.getOneTask(id);
     }
 
     @Post()
-    createTask(@Body() input: string){
-        console.log(input)
-        return "New task"
+    createTask(@Body('title') title: string, @Body('description') description: string){
+        return this.tasksService.createTask(title, description);
     }
 
     @Put(":id")

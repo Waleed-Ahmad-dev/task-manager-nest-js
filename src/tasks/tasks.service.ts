@@ -1,14 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { Task } from './task.model';
 
 @Injectable()
 export class TasksService {
-    tasks = []
+    private tasks: Task[] = [];
 
-    getAllTasks(){
-        return this.tasks
+    getAllTasks(): Task[] {
+        return this.tasks;
     }
 
-    getOneTask(id: string){
-        return this.tasks.filter(tasks => tasks == id)
+    getOneTask(id: string): Task {
+        const found = this.tasks.find(task => task.id === id);
+        
+        if (!found) {
+            throw new NotFoundException(`Task with ID "${id}" not found`);
+        }
+
+        return found;
+    }
+    
+    createTask(title: string, description: string): Task {
+        const task: Task = {
+            id: Math.random().toString(36).substring(2, 15),
+            title,
+            description,
+            status: 'OPEN',
+        };
+        this.tasks.push(task);
+        return task;
     }
 }
