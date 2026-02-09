@@ -30,4 +30,14 @@ export class TasksService {
         this.tasks.push(task);
         return task;
     }
+
+    updateTask(id: string, title: string, description: string){
+        const updatedTask: Task[] = this.tasks.map(task => {
+            if (task.id === id){
+                return {...task, title: title, description: description}
+            }
+            return task
+        })
+        return updatedTask
+    }
 }
