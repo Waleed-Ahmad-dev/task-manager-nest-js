@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
+import { title } from 'process';
 
 @Controller('tasks')
 export class TasksController {
@@ -22,9 +23,8 @@ export class TasksController {
     }
 
     @Put(":id")
-    updateTask(@Param('id') id: string, @Body() input: string){
-        console.log(input, id)
-        return "Update task"
+    updateTask(@Param('id') id: string, @Body('title') title: string, @Body('description') description: string){
+        return this.tasksService.updateTask(id, title, description)
     }
 
     @Delete(":id")
