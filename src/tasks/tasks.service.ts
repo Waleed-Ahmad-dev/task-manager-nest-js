@@ -40,4 +40,12 @@ export class TasksService {
         })
         return updatedTask
     }
+
+    deleteTask(id: string){
+        const index =  this.tasks.findIndex(task => task.id === id)
+        if (index !== -1){
+            this.tasks.splice(index, 1)
+        }
+        return "Task Deleted"
+    }
 }
