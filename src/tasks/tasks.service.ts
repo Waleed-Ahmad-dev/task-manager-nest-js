@@ -7,4 +7,8 @@ export class TasksService {
     getAllTasks(){
         return this.tasks
     }
+
+    getOneTask(id: string){
+        return this.tasks.filter(tasks => tasks == id)
+    }
 }
